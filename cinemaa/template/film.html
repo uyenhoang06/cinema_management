@@ -1,0 +1,38 @@
+<!doctype html>
+
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block main_content %}
+
+<br/>
+<button class="button">
+    <a href="/add_film" style="text-decoration-color: white" > Add Film </a>
+</button>
+
+<div class="container-fluid">
+    <h2>Phim dang chieu</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                {% for movie in items %}
+                  <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                      <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{movie.title}}">
+                      <div class="card-body">
+                        <h5 class="card-title">{{movie.title}}</h5>
+                        <p class="card-text">{{movie.description}}</p>
+                        <a href="/update_film/{{movie.movie_id}}" class="btn btn-sm btn-warning">Update</a>
+                        <a href="/delete_film/{{movie.movie_id}}" class="btn btn-sm btn-danger">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

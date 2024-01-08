@@ -1,0 +1,15 @@
+
+
+<!DOCTYPE html>
+
+{% extends 'ticket.html' %}
+{ % load static %}
+
+{% block main_content %}
+
+<p>{{ticket.id}}</p>
+<p>{{ticket.showtime}}</p>
+<p>{{ticket.seat.seat}}</p>
+<p>{{ticket.seat.showtime.hall}}</p>
+
+{% endblock %}

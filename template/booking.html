@@ -1,0 +1,45 @@
+
+
+<!DOCTYPE html>
+
+{% extends 'schedule.html' %}
+{ % load static %}
+{% load custom_tags %}
+
+{% block main_content %}
+<h1> Booking {{show.movie}} </h1>
+
+<div class="container-fluid">
+    <form action = "{% url 'booking:booking' show.id %}" method='post' enctype="multipart/form-data">
+        {% csrf_token %}
+        <table style="width: 100%">
+            {% for col in cols %}
+                <td style="text-align: center"> {{col}} </td>
+            {% endfor %}
+
+            {% for row in rows %}
+            {% list_item list_form row as list_form_row %}
+                <tr style="outline: thin solid; height: 20px">
+                    {% for col in cols %}
+                        <td style="outline: thin solid; width: 10px">
+                            {% list_item list_form_row col as abc %}
+                            {% if abc %}
+                            <div>
+                                <label for="id_seat_{{row}}_{{col}}">
+                                    <input type="checkbox" name="seat" value="{{abc.id}}" id="id_seat_{{row}}_{{col}}">
+                                    {{abc.type}}, {{abc.status}}
+                                </label>
+                            </div>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <input type="submit" value="Continue" class="btn btn-success">
+
+    </form>
+</div>
+
+{% endblock %}

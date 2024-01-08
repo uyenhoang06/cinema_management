@@ -1,0 +1,25 @@
+
+
+<!doctype html>
+
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block main_content %}
+<a href="/update_profile/{{user.id}}" class="btn btn-sm btn-warning">Update</a>
+
+    <h2> Profile {{user.username}} </h2>
+    <h5> Name : {{user.first_name}} {{user.last_name}}</h5>
+    <img src="{{user.avatar.url}}">
+    <p> Address:  {{user.address}}</p>
+    <p> Phone : {{user.phone}}</p>
+    <p> Birthday : {{user.birthday}}</p>
+    <p> Score : {{user.score}}</p>
+    <p> Membership : {{user.membership}}</p>
+    <h5> Reviews </h5>
+    {% for r in review %}
+        <li> {{r.movie}}, {{r.review}}, {{r.rating}} </li>
+    {% endfor %}
+
+{% endblock %}

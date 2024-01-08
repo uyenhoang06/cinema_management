@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+{% extends 'home.html' %}
+
+{ % load static %}
+
+{% block main_content  %}
+
+<h1>Showtime Page</h1>
+{% if perms.cinemaa.add_showtime %}
+    <a href="/add_showtime">
+        <button>Add Showtime</button>
+    </a>
+{% endif %}
+<br>
+
+<h2 style="background-color: cornsilk">{{today}}</h2>
+{% for show in showtime_today %}
+<h5>{{show.movie}}</h5>
+<p>{{show.hall}}</p>
+<p>{{show.start_time}}</p>
+<p>{{show.end_time}}</p>
+
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+
+   {% if perms.cinemaa.change_showtime  %}
+<a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
+<a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
+    {% endif %}
+
+{% endfor %}
+
+<h2 style="background-color: cornsilk">{{next1}}</h2>
+{% for show in showtime_next1 %}
+<h5>{{show.movie}}</h5>
+<p>{{show.hall}}</p>
+<p>{{show.date}}</p>
+<p>{{show.start_time}}</p>
+<p>{{show.end_time}}</p>
+   {% if perms.cinemaa.change_showtime  %}
+<a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
+<a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
+    {% endif %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+
+{% endfor %}
+
+<h2 style="background-color: cornsilk">{{next2}}</h2>
+{% for show in showtime_next2 %}
+<h5>{{show.movie}}</h5>
+<p>{{show.hall}}</p>
+<p>{{show.date}}</p>
+<p>{{show.start_time}}</p>
+<p>{{show.end_time}}</p>
+   {% if perms.cinemaa.change_showtime  %}
+<a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
+<a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
+    {% endif %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+
+{% endfor %}
+
+<h2 style="background-color: cornsilk">{{next3}}</h2>
+{% for show in showtime_next3 %}
+<h5>{{show.movie}}</h5>
+<p>{{show.hall}}</p>
+<p>{{show.date}}</p>
+<p>{{show.start_time}}</p>
+<p>{{show.end_time}}</p>
+   {% if perms.cinemaa.change_showtime  %}
+<a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
+<a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
+    {% endif %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+
+{% endfor %}
+
+<h2 style="background-color: cornsilk">{{next4}}</h2>
+{% for show in showtime_next4 %}
+<h5>{{show.movie}}</h5>
+<p>{{show.hall}}</p>
+<p>{{show.date}}</p>
+<p>{{show.start_time}}</p>
+<p>{{show.end_time}}</p>
+   {% if perms.cinemaa.change_showtime  %}
+<a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
+<a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
+    {% endif %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+
+{% endfor %}
+
+<h2 style="background-color: cornsilk">{{next5}}</h2>
+{% for show in showtime_next5 %}
+<h5>{{show.movie}}</h5>
+<p>{{show.hall}}</p>
+<p>{{show.date}}</p>
+<p>{{show.start_time}}</p>
+<p>{{show.end_time}}</p>
+   {% if perms.cinemaa.change_showtime  %}
+<a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
+<a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
+    {% endif %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+
+{% endfor %}
+
+
+{% endblock %}

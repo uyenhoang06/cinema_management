@@ -1,0 +1,22 @@
+
+
+<!DOCTYPE html>
+
+{% extends 'home.html' %}
+{ % load static %}
+
+{% block main_content %}
+
+<h1>List Booking</h1>
+
+{% if booking %}
+  {% for b in booking %}
+    <p>{{b.id}} | <a href="http://127.0.0.1:8000/ticket/payment_detail/{{b.id}}">{{b.code}} </a> | {{b.created_at}} | {{b.customer}}</p>
+  {% endfor %}
+
+{% else %}
+<p>Nothing found</p>
+{% endif %}
+
+
+{% endblock %}

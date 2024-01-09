@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+
+{% extends 'booking.html' %}
+{ % load static %}
+
+{% block main_content %}
+
+<form action = "{% url 'booking:payment' booking.id %}" method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1> Bill</h1>
+    <p>Customer : {{user}}</p>
+    <p>{{booking.score}}</p>
+    <p>{{user.score}}</p>
+    <p>Movie : {{showtime.movie}} </p>
+    <p>Hall : {{showtime.hall}}</p>
+    <p>Date : {{showtime.date}} </p>
+    <p>Time: {{showtime.start_time}} to {{showtime.end_time}}</p>
+    <p>Seat : </p>
+    {% for s in seats %}
+        <p>[{{s.seat.type}}] {{s.seat.row}} {{s.seat.col}}</p>
+    {% endfor %}
+    <p>Price : {{normal_price}}</p>
+    <p>{{booking.created_at}}</p>
+
+    {% if applied_discount %}
+        <p> Applies Discount : {{applied_discount}} </p>
+        <p>New_Price : {{price}}</p>
+    {% endif %}
+
+    {% if score %}
+        <p>New_Price_score : {{price}}</p>
+    {% endif %}
+
+
+    {{discount.as_p}}
+    <input name="apply_discount" type="submit" value="Apply Discount" class="btn btn-success">
+    <input name="use_score" type="submit" value="Use Score" class="btn btn-success">
+    <input name="delete_score" type="submit" value="Delete Score" class="btn btn-success">
+    <input name="delete_discount" type="submit" value="Delete Discount" class="btn btn-success">
+
+    <input name="dat_ve" type="submit" value="Dat ve" class="btn btn-success">
+
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+
+{% extends 'home.html' %}
+{ % load static %}
+
+{% block main_content %}
+
+<h1>List Booking</h1>
+<form action = "{% url 'booking:search_result' %}" method='post' enctype="multipart/form-data">
+      {% csrf_token %}
+
+  {{search.as_p}}
+  <input name="search" type="submit" value="Search" class="btn btn-success">
+
+</form>
+
+
+{% for b in booking %}
+  <p>{{b.id}} | <a href="ticket/payment_detail/{{b.id}}">{{b.code}} </a> | {{b.created_at}} | {{b.customer}}</p>
+{% endfor %}
+
+{% endblock %}

@@ -5,8 +5,8 @@ from .models import *
 
 # Register your models here.
 
-class ScheduleStaffAdmin(admin.ModelAdmin):
-    list_display = ('staff', 'joining_date', 'phone', 'birthday', 'address')
+class StaffAdmin(admin.ModelAdmin):
+    list_display = ('staff', 'joining_date', 'phone', 'birthday', 'address', 'position')
 
     def phone(self, user):
         return user.staff.phone
@@ -17,18 +17,6 @@ class ScheduleStaffAdmin(admin.ModelAdmin):
     def address(self, user):
         return user.staff.address
 
-
-class TicketStaffAdmin(admin.ModelAdmin):
-    list_display = ('staff', 'joining_date', 'phone', 'birthday', 'address')
-
-    def phone(self, user):
-        return user.staff.phone
-
-    def birthday(self, user):
-        return user.staff.birthday
-
-    def address(self, user):
-        return user.staff.address
 
 # class CustomerAdmin(admin.ModelAdmin):
 #     list_display = ('customer', 'phone', 'address', 'membership', 'score')
@@ -44,6 +32,5 @@ class TicketStaffAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User)
-admin.site.register(ScheduleStaff, ScheduleStaffAdmin)
-admin.site.register(TicketStaff, TicketStaffAdmin)
+admin.site.register(Staff, StaffAdmin)
 # admin.site.register(Customer, CustomerAdmin)

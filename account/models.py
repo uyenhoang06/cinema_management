@@ -24,14 +24,16 @@ class User(TemplateUser):
 
 
 
-class ScheduleStaff(models.Model):
+class Staff(models.Model):
     staff = models.OneToOneField(User, on_delete=models.CASCADE)
     joining_date = models.DateField(auto_now_add=True)
+    position = models.CharField(max_length=50, choices={
+        'schedule_staff' : 'schedule_staff',
+        'ticket_staff' : 'ticket_staff',
+        })
 
 
-class TicketStaff(models.Model):
-    staff = models.OneToOneField(User, on_delete=models.CASCADE)
-    joining_date = models.DateField(auto_now_add=True)
+
 
 
 

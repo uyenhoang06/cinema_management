@@ -48,6 +48,15 @@ class DiscountForm(forms.Form):
             return discount[0]
         return None
 
+    def clean_code(self):
+        code = self.cleaned_data['code']
+        print(code)
+        discount = Discount.objects.get(code=code)
+        if discount.valid_to < datetime.date.today():
+            print('invalid')
+            return None
+        return code
+
 
 class DeleteForm(forms.Form):
     # id = forms.IntegerField(widget=forms.HiddenInput)

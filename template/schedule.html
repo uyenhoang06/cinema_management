@@ -21,7 +21,9 @@
 <p>{{show.start_time}}</p>
 <p>{{show.end_time}}</p>
 
+{% if perms.booking.add_booking  %}
 <a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+{% endif %}
 
    {% if perms.cinemaa.change_showtime  %}
 <a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
@@ -37,11 +39,13 @@
 <p>{{show.date}}</p>
 <p>{{show.start_time}}</p>
 <p>{{show.end_time}}</p>
+    {% if perms.booking.add_booking  %}
+    <a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+    {% endif %}
    {% if perms.cinemaa.change_showtime  %}
 <a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
 <a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
     {% endif %}
-<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
 
 {% endfor %}
 
@@ -52,11 +56,13 @@
 <p>{{show.date}}</p>
 <p>{{show.start_time}}</p>
 <p>{{show.end_time}}</p>
+{% if perms.booking.add_booking  %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+{% endif %}
    {% if perms.cinemaa.change_showtime  %}
 <a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
 <a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
     {% endif %}
-<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
 
 {% endfor %}
 
@@ -67,11 +73,13 @@
 <p>{{show.date}}</p>
 <p>{{show.start_time}}</p>
 <p>{{show.end_time}}</p>
+{% if perms.booking.add_booking  %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+{% endif %}
    {% if perms.cinemaa.change_showtime  %}
 <a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
 <a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
     {% endif %}
-<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
 
 {% endfor %}
 
@@ -82,11 +90,13 @@
 <p>{{show.date}}</p>
 <p>{{show.start_time}}</p>
 <p>{{show.end_time}}</p>
+{% if perms.booking.add_booking  %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+{% endif %}
    {% if perms.cinemaa.change_showtime  %}
 <a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
 <a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
     {% endif %}
-<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
 
 {% endfor %}
 
@@ -97,11 +107,13 @@
 <p>{{show.date}}</p>
 <p>{{show.start_time}}</p>
 <p>{{show.end_time}}</p>
+{% if perms.booking.add_booking  %}
+<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
+{% endif %}
    {% if perms.cinemaa.change_showtime  %}
 <a href="/update_showtime/{{show.id}}" class="btn btn-sm btn-warning">Update</a>
 <a href="/delete_showtime/{{show.id}}" class="btn btn-sm btn-danger">Delete</a>
     {% endif %}
-<a href="/book_showtime/{{show.id}}" class="btn btn-sm btn-danger">Booking</a>
 
 {% endfor %}
 

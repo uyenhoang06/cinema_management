@@ -16,7 +16,7 @@ def create(sender, **kwargs):
     # from movie.models import Movie
     from .models import User
 
-    roles = ['admin', 'schedule_staff', 'ticket_staff']
+    roles = ['admin', 'schedule_staff', 'ticket_staff', 'customer']
     for role in roles:
         if not Group.objects.filter(name=role).exists():
             Group.objects.create(name=role)
@@ -47,6 +47,16 @@ def create(sender, **kwargs):
         ticket_staff_group.permissions.add(p)
     ticket_staff_group.save()
 
+
+    customer_group = Group.objects.get(name='customer')
+    perms3 = [
+        Permission.objects.get(codename='add_booking', content_type__app_label='booking'),
+        Permission.objects.get(codename='delete_booking', content_type__app_label='booking'),
+        Permission.objects.get(codename='change_booking', content_type__app_label='booking'),
+    ]
+    for p in perms3:
+        customer_group.permissions.add(p)
+    customer_group.save()
 
 
 

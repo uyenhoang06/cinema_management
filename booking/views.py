@@ -121,7 +121,8 @@ class PaymentView(View):
             discount = bd.discount
             score = bd.score
             if discount is not None:
-                price -= price*(discount.percentage/100)
+                if price >= discount.minimum_amount:
+                    price -= price*(discount.percentage/100)
             if score is not None:
                 price = round(price - decimal.Decimal(score / 100), 2)
 
@@ -135,13 +136,14 @@ class PaymentView(View):
         if len(ticket) ==0:
             request.session['booking'] = 'this seat is unavailable'
             return HttpResponseRedirect(f'http://127.0.0.1:8000/schedule')
+
         showtime = ticket[0].showtime
+        print(ticket[0].seat.showtime)
 
         list_seat = []
         for t in ticket:
             if t.seat.seat not in list_seat:
                 list_seat.append(t.seat.seat)
-        print(list_seat)
         # print(list_seats)
 
         return render(request, 'payment.html',{
@@ -185,7 +187,6 @@ class PaymentView(View):
             t.seat.status = 'unavailable'
             t.seat.save()
 
-        
         for bd in booking_discount:
             if bd.score is not None:
                 user.score -= bd.score
@@ -193,9 +194,11 @@ class PaymentView(View):
                 discount = Discount.objects.get(id=bd.discount_id)
                 discount.delete()
                 booking_discount.delete()
+                print('da delete')
 
         user.save()
         booking.save()
+        # booking_discount.save()
 
 
         return render(request, 'payment_success.html', {
@@ -219,6 +222,7 @@ class PaymentView(View):
             discount = form.save(booking=booking)
             if discount:
                 BookingDiscount.objects.create(booking=booking, discount=discount)
+
             normal_price, price = self.booking_price(id)
 
             return render(

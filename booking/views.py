@@ -128,8 +128,13 @@ class PaymentView(View):
         return normal_price, price
 
     def get(self, request, id):
+        print(request)
         booking = Booking.objects.get(id=id)
         ticket = Ticket.objects.filter(booking=booking)
+        # print(len(ticket))
+        if len(ticket) ==0:
+            request.session['booking'] = 'this seat is unavailable'
+            return HttpResponseRedirect(f'http://127.0.0.1:8000/schedule')
         showtime = ticket[0].showtime
 
         list_seat = []

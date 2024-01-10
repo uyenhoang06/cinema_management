@@ -192,12 +192,10 @@ class PaymentView(View):
             if bd.discount_id is not None:
                 discount = Discount.objects.get(id=bd.discount_id)
                 discount.delete()
-                discount.save()
+                booking_discount.delete()
 
         user.save()
         booking.save()
-        booking_discount.delete()
-        # booking_discount.save()
 
 
         return render(request, 'payment_success.html', {

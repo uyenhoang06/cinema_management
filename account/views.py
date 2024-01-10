@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail, EmailMessage
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse
@@ -51,7 +52,9 @@ class RegisterView(View):
     def post(self, request):
         form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            group = Group.objects.get(name='customer')
+            user.groups.add(group)
             request.session['register'] = 'Register successfully'
             return HttpResponseRedirect('login')
         else:

@@ -78,7 +78,8 @@ class BookingView(View):
 
         for s in seats:
             seat = ShowtimeSeat.objects.get(id=int(s))
-            seat_reserved.append(seat)
+            if seat not in seat_reserved:
+                seat_reserved.append(seat)
 
             # if request.user.groups.filter(name='customer').exists():
             # else:
@@ -97,7 +98,6 @@ class BookingView(View):
                 booking.save()
             else:
                 print('loi', ticket.errors.as_data())
-
         return HttpResponseRedirect(f'/payment/{booking.id}')
 
 
@@ -110,8 +110,11 @@ class PaymentView(View):
         booking_discount = BookingDiscount.objects.filter(booking=booking)
         ticket = Ticket.objects.filter(booking=booking)
         price = 0
+        list_seat = []
         for t in ticket:
-            price += t.ticket_price
+            if t.seat.seat not in list_seat:
+                list_seat.append(t.seat.seat)
+                price += t.ticket_price
 
         normal_price = price
         for bd in booking_discount:
@@ -131,15 +134,15 @@ class PaymentView(View):
 
         list_seat = []
         for t in ticket:
-            list_seat.append(t.seat.seat)
-
-        list_seats = [{'seat': s, 'delete_form': DeleteForm(initial={'id': s.id})} for s in list_seat]
+            if t.seat.seat not in list_seat:
+                list_seat.append(t.seat.seat)
+        print(list_seat)
         # print(list_seats)
 
         return render(request, 'payment.html',{
             "discount" : DiscountForm(),
             "showtime" : showtime,
-            "seats" : list_seats,
+            "seats" : list_seat,
             "user" : booking.customer,
             "booking" : booking,
             'normal_price' : self.booking_price(id)[0],
@@ -207,7 +210,8 @@ class PaymentView(View):
         showtime = ticket[0].showtime
         list_seat = []
         for t in ticket:
-            list_seat.append(t.seat.seat)
+            if t.seat.seat not in list_seat:
+                list_seat.append(t.seat.seat)
         if form.is_valid():
             discount = form.save(booking=booking)
             if discount:
@@ -238,7 +242,8 @@ class PaymentView(View):
         showtime = ticket[0].showtime
         list_seat = []
         for t in ticket:
-            list_seat.append(t.seat.seat)
+            if t.seat.seat not in list_seat:
+                list_seat.append(t.seat.seat)
 
         score = 0
         booking_discount = BookingDiscount.objects.filter(booking=booking)
@@ -270,7 +275,8 @@ class PaymentView(View):
         showtime = ticket[0].showtime
         list_seat = []
         for t in ticket:
-            list_seat.append(t.seat.seat)
+            if t.seat.seat not in list_seat:
+                list_seat.append(t.seat.seat)
         booking_discount = BookingDiscount.objects.filter(booking=booking)
         for bd in booking_discount:
             if bd.score is not None :
@@ -301,7 +307,8 @@ class PaymentView(View):
         showtime = ticket[0].showtime
         list_seat = []
         for t in ticket:
-            list_seat.append(t.seat.seat)
+            if t.seat.seat not in list_seat:
+                list_seat.append(t.seat.seat)
         booking_discount = BookingDiscount.objects.filter(booking=booking)
         for bd in booking_discount:
             if bd.discount is not None :

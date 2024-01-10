@@ -18,7 +18,7 @@
     <p>Time: {{showtime.start_time}} to {{showtime.end_time}}</p>
     <p>Seat : </p>
     {% for s in seats %}
-        <p>[{{s.seat.type}}] {{s.seat.row}} {{s.seat.col}}</p>
+        <p>[{{s.type}}] {{s.row}} {{s.col}} </p>
     {% endfor %}
     <p>Price : {{normal_price}}</p>
     <p>{{booking.created_at}}</p>

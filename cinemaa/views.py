@@ -63,7 +63,6 @@ class HomeView(View):
 
 class ShowtimeView(View):
     template = 'schedule.html'
-
     def get_showtime(self, date):
         # print(today)
         showtimes = []
@@ -83,39 +82,68 @@ class ShowtimeView(View):
             showtimes.append(item)
         return showtimes
 
+    def get_list_time(self, movie, date):
+        result = []
+        for i, showtime in enumerate(ShowTime.objects.filter(date=date, movie=movie)):
+            item = {
+                'id' : showtime.id,
+                'movie': showtime.movie,
+                'hall': showtime.hall,
+                'date': showtime.date,
+                'start_time': showtime.start_time,
+                'end_time': showtime.end_time,
+                'slot_status': showtime.slot_status,
+                'subtitle': showtime.subtitle
+            }
+            # print(item)
+            result.append(item)
+        return result
+
+    def final(self, date):
+        result = []
+
+        showtime_today = self.get_showtime(date)
+        # print(showtime_today)
+        movies_today = []
+        for s in showtime_today:
+            if s['movie'] not in movies_today:
+                movies_today.append(s['movie'])
+
+        for movie in movies_today:
+            item = {
+                'movie' : movie,
+                'showtime' : ShowTime.objects.filter(date=date, movie=movie)
+            }
+            result.append(item)
+        return result
+
     def get(self, request):
         today = datetime.date.today()
         today_date = date.today()
 
-        showtime_today = self.get_showtime(today)
-        movies_today = set([showtime['movie'] for showtime in showtime_today])
-        list_showtime_today = []
-        for movie in movies_today:
-            dict = defaultdict(list)
-            for showtime in showtime_today:
-                if showtime['movie'] == movie:
-                    for key, value in showtime.items():
-                        dict[key].append(value)
-                    list_showtime_today.append(dict)
+        list_showtime_today = self.final(today_date)
+
 
         context = {
             'today' : today_date,
-            'showtime_today' : showtime_today,
+            'showtime_today' : list_showtime_today,
+            # 'list_time': list_showtime_today,
 
             'next1' : today_date+timedelta(days=1),
-            'showtime_next1': self.get_showtime(today + timedelta(days=1)),
+            'showtime_next1': self.final(today + timedelta(days=1)),
+
 
             'next2': today_date + timedelta(days=2),
-            'showtime_next2': self.get_showtime(today + timedelta(days=2)),
+            'showtime_next2': self.final(today + timedelta(days=2)),
 
             'next3': today_date + timedelta(days=3),
-            'showtime_next3': self.get_showtime(today + timedelta(days=3)),
+            'showtime_next3': self.final(today + timedelta(days=3)),
 
             'next4': today_date + timedelta(days=4),
-            'showtime_next4': self.get_showtime(today + timedelta(days=4)),
+            'showtime_next4': self.final(today + timedelta(days=4)),
 
             'next5': today_date + timedelta(days=5),
-            'showtime_next5': self.get_showtime(today + timedelta(days=5)),
+            'showtime_next5': self.final(today + timedelta(days=5)),
             'current_tab' : 'schedule'
         }
 
